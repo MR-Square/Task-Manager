@@ -6,7 +6,7 @@ class SplashServices {
     Future.delayed(
       const Duration(seconds: 3),
       () {
-        Get.offAllNamed(RoutesName.homeView);
+        Get.offAllNamed(RoutesName.loginView);
       },
     );
   }
