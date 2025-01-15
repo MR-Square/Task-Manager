@@ -46,4 +46,28 @@ class Utils {
       colorText: Colors.white,
     );
   }
+
+  /// This method is used to change the focus from one field to another field.
+  /// It accepts three arguments : [context], [current] and [next].
+  /// 
+  /// context: BuildContext.
+  /// 
+  /// current: focusnode of current active field.
+  /// 
+  /// next: focusnode of next field where you want to focus.
+  static changeFocusNode(
+    BuildContext context,
+    FocusNode current,
+    FocusNode next,
+  ) {
+    current.unfocus();
+    FocusScope.of(context).requestFocus(next);
+  }
+
+  /// This method is used to [unfocus] a field.
+  /// 
+  /// You need to pass the focusnode name of field you want to unfocus.
+  static unFocusField(FocusNode node) {
+    node.unfocus();
+  }
 }

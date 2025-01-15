@@ -25,7 +25,7 @@ class _LoginViewState extends State<LoginView> {
             child: Column(
               children: [
                 Utils.horizontalSpace(1),
-                Utils.verticalSpace(15),
+                Utils.verticalSpace(18),
                 const Text(
                   'Login',
                   style: TextStyle(
@@ -34,21 +34,28 @@ class _LoginViewState extends State<LoginView> {
                     fontWeight: FontWeight.w500,
                   ),
                 ),
-                Utils.verticalSpace(10),
+                Utils.verticalSpace(13),
                 SimpleInputfieldWidget(
                   labelText: 'Username',
                   controller: _vm.usernameController,
                   focusNode: _vm.usernameFocusnode,
                   validateString: 'username is required',
+                  onFieldSubmit: (val) {
+                    Utils.changeFocusNode(
+                      context,
+                      _vm.usernameFocusnode,
+                      _vm.passwordFocusnode,
+                    );
+                  },
                 ),
-                Utils.verticalSpace(),
                 SimpleInputfieldWidget(
                   labelText: 'Password',
                   controller: _vm.passwordController,
                   focusNode: _vm.passwordFocusnode,
                   validateString: 'password is required',
+                  isPassword: true,
                 ),
-                Utils.verticalSpace(20),
+                Utils.verticalSpace(8),
                 SimpleButtonWidget(
                   label: 'Login',
                   onPress: _vm.onLogin,
