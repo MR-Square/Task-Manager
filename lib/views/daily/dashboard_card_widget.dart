@@ -4,7 +4,12 @@ import 'package:task_manager/utils/utils.dart';
 class DashboardCardWidget extends StatelessWidget {
   const DashboardCardWidget({
     super.key,
+    required this.total,
+    required this.completed,
   });
+
+  final int total;
+  final int completed;
 
   @override
   Widget build(BuildContext context) {
@@ -53,10 +58,10 @@ class DashboardCardWidget extends StatelessWidget {
               borderRadius: BorderRadius.circular(100),
               color: Colors.redAccent,
             ),
-            child: const Center(
+            child: Center(
               child: Text(
-                '3/6',
-                style: TextStyle(
+                '$completed/$total',
+                style: const TextStyle(
                   fontSize: 50,
                   fontWeight: FontWeight.w500,
                 ),

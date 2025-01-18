@@ -1,5 +1,5 @@
 class TaskModel {
-  const TaskModel({
+  TaskModel({
     this.id,
     this.task,
     this.isCompleted,
@@ -8,15 +8,15 @@ class TaskModel {
 
   final int? id;
   final String? task;
-  final bool? isCompleted;
-  final bool? isDeleted;
+  bool? isCompleted;
+  bool? isDeleted;
 
   factory TaskModel.fromJson(Map<String, dynamic> json) {
     return TaskModel(
-      id: int.tryParse(json['id']),
+      id: json['id'],
       task: json['task'],
-      isCompleted: bool.tryParse(json['isCompleted']),
-      isDeleted: bool.tryParse(json['isDeleted']),
+      isCompleted: json['isCompleted'],
+      isDeleted: json['isDeleted'],
     );
   }
 

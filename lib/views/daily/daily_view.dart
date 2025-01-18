@@ -14,6 +14,13 @@ class DailyView extends StatefulWidget {
 
 class _DailyViewState extends State<DailyView> {
   final _vm = Get.put(DailyViewModel());
+
+  @override
+  void initState() {
+    super.initState();
+    _vm.getDailyTasks();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,7 +31,7 @@ class _DailyViewState extends State<DailyView> {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 4.0),
             child: IconButton(
-              onPressed: () => _vm.addDailyTask(context),
+              onPressed: () => _vm.onAddDailyTask(context),
               icon: const Icon(
                 Icons.add,
                 color: Colors.green,
@@ -38,7 +45,12 @@ class _DailyViewState extends State<DailyView> {
         child: Column(
           children: [
             Utils.horizontalSpace(100),
-            const DashboardCardWidget(),
+            Obx(
+              () => DashboardCardWidget(
+                total: _vm.totalDailyTasks.value,
+                completed: _vm.totalCompletedTasks.value,
+              ),
+            ),
             Utils.verticalSpace(),
             Expanded(
               child: Obx(
@@ -48,9 +60,21 @@ class _DailyViewState extends State<DailyView> {
                     TaskModel task = _vm.dailyTaskList[index];
                     return Card(
                       child: ListTile(
+                        onLongPress: () {
+                          _vm.deleteDailyTask(index);
+                        },
                         title: Text(task.task.toString()),
                         trailing: Checkbox(
-                            value: task.isCompleted, onChanged: (val) {}),
+                          value: task.isCompleted,
+                          onChanged: (val) {
+                            task.isCompleted = !task.isCompleted!;
+                            if (task.isCompleted!) {
+                              _vm.totalCompletedTasks.value++;
+                            } else {
+                              _vm.totalCompletedTasks.value--;
+                            }
+                          },
+                        ),
                       ),
                     );
                   },
