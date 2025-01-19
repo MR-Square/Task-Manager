@@ -6,10 +6,14 @@ class DashboardCardWidget extends StatelessWidget {
     super.key,
     required this.total,
     required this.completed,
+    required this.color,
+    required this.message,
   });
 
   final int total;
   final int completed;
+  final Color color;
+  final String message;
 
   @override
   Widget build(BuildContext context) {
@@ -31,11 +35,11 @@ class DashboardCardWidget extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
-          const Column(
+          Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
+              const Text(
                 'Todo Done',
                 style: TextStyle(
                   fontSize: 30,
@@ -43,8 +47,8 @@ class DashboardCardWidget extends StatelessWidget {
                 ),
               ),
               Text(
-                'Keep it up',
-                style: TextStyle(
+                message,
+                style: const TextStyle(
                   fontSize: 22,
                   fontWeight: FontWeight.w300,
                 ),
@@ -56,7 +60,7 @@ class DashboardCardWidget extends StatelessWidget {
             height: Utils.widthPer(35),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(100),
-              color: Colors.redAccent,
+              color: color,
             ),
             child: Center(
               child: Text(

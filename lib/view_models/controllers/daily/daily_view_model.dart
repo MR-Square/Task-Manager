@@ -5,103 +5,105 @@ import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:task_manager/models/task_model.dart';
 import 'package:task_manager/res/components/inputs/simple_inputfield_widget.dart';
+import 'package:task_manager/res/constants/constants.dart';
+import 'package:task_manager/utils/utils.dart';
 
 class DailyViewModel extends GetxController {
-  // ====================== RX VALUES ======================
-  RxInt totalDailyTasks = 0.obs;
-  RxInt totalCompletedTasks = 0.obs;
-  // ====================== CONTROLLER ======================
+  // ======================== RX VALUES ========================
+  // INT
+  RxInt totalTasks = 0.obs;
+  RxInt completedTasks = 0.obs;
+
+  // COLORS
+  final statusColor = Colors.redAccent.obs;
+
+  // STRINGS
+  RxString statusMessage = 'Keep it up'.obs;
+
+  // LISTS
+  RxList dailyTasksList = <TaskModel>[].obs;
+
+  // ======================== CONTROLLERS ========================
   final addTaskController = TextEditingController();
 
-  // ====================== LISTS ======================
-  RxList dailyTaskList = <TaskModel>[].obs;
+  // ======================== LISTS ========================
+  // ======================== METHODS ========================
 
-  // ====================== METHODS ======================
-  // Method to add task
-  onAddDailyTask(BuildContext context) {
-    showDialog(
-      context: context,
-      barrierDismissible: false,
-      builder: (context) {
-        return AlertDialog(
-          title: const Center(child: Text('Add Task')),
-          shape: const LinearBorder(),
-          content: SimpleInputfieldWidget(
-            controller: addTaskController,
-            labelText: 'Task',
-          ),
-          // contentPadding: const EdgeInsets.all(4),
-          actions: [
-            TextButton(
-              onPressed: () {
-                addTaskController.clear();
-                Get.back();
-              },
-              child: const Text(
-                'cancel',
-                style: TextStyle(
-                  color: Colors.red,
-                ),
-              ),
-            ),
-            TextButton(
-              onPressed: () {
-                addDailyTask(addTaskController.text);
-                addTaskController.clear();
-                Get.back();
-              },
-              child: const Text(
-                'save',
-                style: TextStyle(
-                  color: Colors.green,
-                ),
-              ),
-            ),
-          ],
-        );
-      },
-    );
-  }
-
-  // Method to fetch stored daily tasks:
-  getDailyTasks() async {
+  // Method to fetch tasks from storage:
+  getTasks() async {
     SharedPreferences sp = await SharedPreferences.getInstance();
 
-    List<String>? dailyTasks = sp.getStringList('daily-tasks');
+    List<String>? tasks = sp.getStringList(StorageKeys.dailyTasksList);
 
-    if (dailyTasks != null) {
-      dailyTaskList.value = dailyTasks
+    if (tasks != null) {
+      dailyTasksList.value = tasks
           .map(
             (task) => TaskModel.fromJson(
               json.decode(task),
             ),
           )
           .toList();
-      totalDailyTasks.value = dailyTaskList.length;
-      totalCompletedTasks.value = dailyTaskList
-          .where((task) => task.isCompleted == true)
-          .toList()
+      totalTasks.value = dailyTasksList.length;
+      completedTasks.value = dailyTasksList
+          .where(
+            (task) => task.isCompleted == true,
+          )
           .length;
+      if (completedTasks.value == totalTasks.value) {
+        statusColor.value = Colors.greenAccent;
+        statusMessage.value = "Well Done";
+      } else {
+        statusColor.value = Colors.redAccent;
+        statusMessage.value = "Keep it up";
+      }
     }
   }
 
-  // Method to add new task in memory:
-  addDailyTask(String task) async {
+  // Method to show [dialog box] to add new task:
+  addTaskDialogBox(BuildContext context) {
+    Utils.showDialogBox(
+      context,
+      'Add Task',
+      [
+        SimpleInputfieldWidget(
+          controller: addTaskController,
+          labelText: 'Task',
+        ),
+      ],
+      onCancel: () {
+        addTaskController.clear();
+        Get.back();
+      },
+      onConfirm: () {
+        addTask(addTaskController.text);
+        addTaskController.clear();
+        Get.back();
+      },
+    );
+  }
+
+  // Method to add task:
+  addTask(String task) async {
     SharedPreferences sp = await SharedPreferences.getInstance();
-    dailyTaskList.insert(
+
+    dailyTasksList.insert(
       0,
       TaskModel(
-        id: dailyTaskList.length,
+        id: dailyTasksList.length,
         task: task,
         isCompleted: false,
         isDeleted: false,
       ),
     );
-    totalDailyTasks.value = dailyTaskList.length;
-    totalCompletedTasks.value =
-        dailyTaskList.where((task) => task.isCompleted == true).toList().length;
 
-    List<String>? dailyTasks = dailyTaskList
+    totalTasks++;
+    completedTasks.value = dailyTasksList
+        .where(
+          (task) => task.isCompleted == true,
+        )
+        .length;
+
+    List<String>? tasks = dailyTasksList
         .map(
           (task) => json.encode(
             task.toJson(),
@@ -109,27 +111,66 @@ class DailyViewModel extends GetxController {
         )
         .toList();
 
-    sp.setStringList('daily-tasks', dailyTasks);
+    sp.setStringList(
+      StorageKeys.dailyTasksList,
+      tasks,
+    );
   }
 
-  // Method to delete stored tasks:
-  deleteDailyTask(int index) async {
-    SharedPreferences sp = await SharedPreferences.getInstance();
-
-    dailyTaskList.removeAt(index);
-    sp.remove('daily-tasks');
+  // Method to delete task:
+  deleteTask(int index) async {
+    dailyTasksList.removeAt(index);
+    totalTasks.value = dailyTasksList.length;
+    completedTasks.value = dailyTasksList
+        .where(
+          (task) => task.isCompleted == true,
+        )
+        .length;
+    clearStorage();
+    saveTask();
   }
 
-  saveDailyTasks() async {
+  // Method to clear storage:
+  clearStorage() async {
     SharedPreferences sp = await SharedPreferences.getInstance();
 
-    List<String> dailyTasks = dailyTaskList
+    sp.remove(StorageKeys.dailyTasksList);
+  }
+
+  // Method to save task to storage:
+  saveTask() async {
+    SharedPreferences sp = await SharedPreferences.getInstance();
+
+    List<String> tasks = dailyTasksList
         .map(
-          (task) => json.encode(
-            task.toJson(),
-          ),
+          (task) => json.encode(task.toJson()),
         )
         .toList();
-    sp.setStringList('daily-tasks', dailyTasks);
+
+    sp.setStringList(
+      StorageKeys.dailyTasksList,
+      tasks,
+    );
+  }
+
+  // Method to update task status:
+  updateTaskStatus(TaskModel task) async {
+    task.isCompleted = !task.isCompleted!;
+    dailyTasksList.refresh();
+    if (task.isCompleted!) {
+      completedTasks.value++;
+    } else {
+      completedTasks.value--;
+    }
+
+    if (completedTasks.value == totalTasks.value) {
+      statusColor.value = Colors.greenAccent;
+      statusMessage.value = 'Well Done';
+    } else {
+      statusColor.value = Colors.redAccent;
+      statusMessage.value = 'Keep it up';
+    }
+    clearStorage();
+    saveTask();
   }
 }

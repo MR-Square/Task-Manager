@@ -30,8 +30,8 @@ class Utils {
       );
 
   /// Return [snackbar]. You need to pass two agruments [title] and [message].
-  /// 
-  /// If message you want to show is for [warning] or [error], then you can 
+  ///
+  /// If message you want to show is for [warning] or [error], then you can
   /// pass [isWarning] as [true].
   static snackbarMessage(
     String title,
@@ -49,11 +49,11 @@ class Utils {
 
   /// This method is used to change the focus from one field to another field.
   /// It accepts three arguments : [context], [current] and [next].
-  /// 
+  ///
   /// context: BuildContext.
-  /// 
+  ///
   /// current: focusnode of current active field.
-  /// 
+  ///
   /// next: focusnode of next field where you want to focus.
   static changeFocusNode(
     BuildContext context,
@@ -65,9 +65,57 @@ class Utils {
   }
 
   /// This method is used to [unfocus] a field.
-  /// 
+  ///
   /// You need to pass the focusnode name of field you want to unfocus.
   static unFocusField(FocusNode node) {
     node.unfocus();
+  }
+
+  static showDialogBox(
+    BuildContext context,
+    String title,
+    List<Widget> contents, {
+    VoidCallback? onCancel,
+    VoidCallback? onConfirm,
+    bool? dismissible = false,
+    double? height,
+  }) {
+    showDialog(
+      context: context,
+      barrierDismissible: dismissible!,
+      builder: (context) {
+        return AlertDialog(
+          title: Center(child: Text(title)),
+          shape: const LinearBorder(),
+          content: SizedBox(
+            height: height ?? heightPer(10),
+            child: Column(
+              children: contents,
+            ),
+          ),
+          actions: [
+            if (onCancel != null)
+              TextButton(
+                onPressed: onCancel,
+                child: const Text(
+                  'cancel',
+                  style: TextStyle(
+                    color: Colors.red,
+                  ),
+                ),
+              ),
+            TextButton(
+              onPressed: onConfirm,
+              child: const Text(
+                'save',
+                style: TextStyle(
+                  color: Colors.green,
+                ),
+              ),
+            ),
+          ],
+        );
+      },
+    );
   }
 }

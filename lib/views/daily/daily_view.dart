@@ -18,7 +18,7 @@ class _DailyViewState extends State<DailyView> {
   @override
   void initState() {
     super.initState();
-    _vm.getDailyTasks();
+    _vm.getTasks();
   }
 
   @override
@@ -31,7 +31,7 @@ class _DailyViewState extends State<DailyView> {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 4.0),
             child: IconButton(
-              onPressed: () => _vm.onAddDailyTask(context),
+              onPressed: () => _vm.addTaskDialogBox(context),
               icon: const Icon(
                 Icons.add,
                 color: Colors.green,
@@ -47,32 +47,29 @@ class _DailyViewState extends State<DailyView> {
             Utils.horizontalSpace(100),
             Obx(
               () => DashboardCardWidget(
-                total: _vm.totalDailyTasks.value,
-                completed: _vm.totalCompletedTasks.value,
+                total: _vm.totalTasks.value,
+                completed: _vm.completedTasks.value,
+                color: _vm.statusColor.value,
+                message: _vm.statusMessage.value,
               ),
             ),
             Utils.verticalSpace(),
             Expanded(
               child: Obx(
                 () => ListView.builder(
-                  itemCount: _vm.dailyTaskList.length,
+                  itemCount: _vm.dailyTasksList.length,
                   itemBuilder: (context, index) {
-                    TaskModel task = _vm.dailyTaskList[index];
+                    TaskModel task = _vm.dailyTasksList[index];
                     return Card(
                       child: ListTile(
                         onLongPress: () {
-                          _vm.deleteDailyTask(index);
+                          _vm.deleteTask(index);
                         },
                         title: Text(task.task.toString()),
                         trailing: Checkbox(
                           value: task.isCompleted,
                           onChanged: (val) {
-                            task.isCompleted = !task.isCompleted!;
-                            if (task.isCompleted!) {
-                              _vm.totalCompletedTasks.value++;
-                            } else {
-                              _vm.totalCompletedTasks.value--;
-                            }
+                            _vm.updateTaskStatus(task);
                           },
                         ),
                       ),
