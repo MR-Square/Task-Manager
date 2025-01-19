@@ -55,6 +55,13 @@ class _LoginViewState extends State<LoginView> {
                   validateString: 'password is required',
                   isPassword: true,
                 ),
+                Align(
+                  alignment: Alignment.bottomRight,
+                  child: TextButton(
+                    onPressed: () {},
+                    child: const Text('forget password'),
+                  ),
+                ),
                 Utils.verticalSpace(8),
                 SimpleButtonWidget(
                   label: 'Login',

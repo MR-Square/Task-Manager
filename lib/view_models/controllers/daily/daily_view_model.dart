@@ -103,6 +103,14 @@ class DailyViewModel extends GetxController {
         )
         .length;
 
+    if (completedTasks.value == totalTasks.value) {
+      statusColor.value = Colors.greenAccent;
+      statusMessage.value = 'Well Done';
+    } else {
+      statusColor.value = Colors.redAccent;
+      statusMessage.value = 'Keep it up';
+    }
+
     List<String>? tasks = dailyTasksList
         .map(
           (task) => json.encode(
@@ -126,6 +134,13 @@ class DailyViewModel extends GetxController {
           (task) => task.isCompleted == true,
         )
         .length;
+    if (completedTasks.value == totalTasks.value) {
+      statusColor.value = Colors.greenAccent;
+      statusMessage.value = 'Well Done';
+    } else {
+      statusColor.value = Colors.redAccent;
+      statusMessage.value = 'Keep it up';
+    }
     clearStorage();
     saveTask();
   }
