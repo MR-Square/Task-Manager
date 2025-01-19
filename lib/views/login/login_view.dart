@@ -48,6 +48,7 @@ class _LoginViewState extends State<LoginView> {
                     );
                   },
                 ),
+                Utils.verticalSpace(),
                 SimpleInputfieldWidget(
                   labelText: 'Password',
                   controller: _vm.passwordController,
