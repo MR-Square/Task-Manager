@@ -63,7 +63,12 @@ class _LoginViewState extends State<LoginView> {
                     onPressed: () {
                       Get.toNamed(RoutesName.forgetPasswordView);
                     },
-                    child: const Text('forget password'),
+                    child: const Text(
+                      'forget password',
+                      style: TextStyle(
+                        color: Colors.red,
+                      ),
+                    ),
                   ),
                 ),
                 Utils.verticalSpace(8),
@@ -90,6 +95,34 @@ class _LoginViewState extends State<LoginView> {
                     ],
                   ),
                 ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Text(
+                      "Don't have an account? ",
+                      style: TextStyle(fontSize: 16),
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        Get.toNamed(RoutesName.signupView);
+                      },
+                      child: const Text(
+                        'Signup',
+                        style: TextStyle(
+                          fontWeight: FontWeight.w700,
+                          fontSize: 16,
+                          shadows: [
+                            Shadow(color: Colors.blue, offset: Offset(0, -1))
+                          ],
+                          color: Colors.transparent,
+                          decoration: TextDecoration.underline,
+                          decorationColor: Colors.blue,
+                          decorationThickness: 2, // optional
+                        ),
+                      ),
+                    )
+                  ],
+                )
               ],
             ),
           ),

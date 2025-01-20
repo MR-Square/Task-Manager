@@ -84,7 +84,9 @@ class _ForgetPasswordViewState extends State<ForgetPasswordView> {
               Utils.verticalSpace(15),
               SimpleButtonWidget(
                 label: 'Change Password',
-                onPress: () {},
+                onPress: () {
+                  Get.back();
+                },
                 width: Utils.width,
               ),
             ],

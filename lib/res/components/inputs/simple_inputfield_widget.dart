@@ -52,7 +52,7 @@ class SimpleInputfieldWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       width: width ?? Utils.widthPer(100),
-      height: height ?? Utils.heightPer(6),
+      height: height,
       child: TextFormField(
         controller: controller,
         focusNode: focusNode,
