@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:task_manager/res/components/butons/simple_button_widget.dart';
 import 'package:task_manager/res/components/inputs/simple_inputfield_widget.dart';
+import 'package:task_manager/res/routes/routes_name.dart';
 import 'package:task_manager/utils/utils.dart';
 import 'package:task_manager/view_models/controllers/login/login_view_model.dart';
 
@@ -59,7 +60,9 @@ class _LoginViewState extends State<LoginView> {
                 Align(
                   alignment: Alignment.bottomRight,
                   child: TextButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Get.toNamed(RoutesName.forgetPasswordView);
+                    },
                     child: const Text('forget password'),
                   ),
                 ),
