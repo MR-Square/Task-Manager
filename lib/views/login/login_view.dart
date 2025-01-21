@@ -50,12 +50,21 @@ class _LoginViewState extends State<LoginView> {
                   },
                 ),
                 Utils.verticalSpace(),
-                SimpleInputfieldWidget(
-                  labelText: 'Password',
-                  controller: _vm.passwordController,
-                  focusNode: _vm.passwordFocusnode,
-                  validateString: 'password is required',
-                  isPassword: true,
+                Obx(
+                  () => SimpleInputfieldWidget(
+                    labelText: 'Password',
+                    controller: _vm.passwordController,
+                    focusNode: _vm.passwordFocusnode,
+                    validateString: 'password is required',
+                    isPassword: !_vm.isPassswordVisible.value,
+                    sufficIcon: _vm.isPassswordVisible.value
+                        ? Icons.visibility
+                        : Icons.visibility_off,
+                    onSuffixIconPress: () {
+                      _vm.isPassswordVisible.value =
+                          !_vm.isPassswordVisible.value;
+                    },
+                  ),
                 ),
                 Align(
                   alignment: Alignment.bottomRight,

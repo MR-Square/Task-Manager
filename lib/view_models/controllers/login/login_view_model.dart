@@ -17,6 +17,8 @@ class LoginViewModel extends GetxController {
   // Variables
   final loginFormKey = GlobalKey<FormState>();
 
+  RxBool isPassswordVisible = false.obs;
+
   // Methods
   onLogin() {
     if (loginFormKey.currentState!.validate()) {

@@ -25,6 +25,8 @@ class SimpleInputfieldWidget extends StatelessWidget {
     this.stringOnly,
     this.doubleOnly,
     this.removeBorder = false,
+    this.sufficIcon,
+    this.onSuffixIconPress,
   });
 
   final String? labelText;
@@ -47,6 +49,8 @@ class SimpleInputfieldWidget extends StatelessWidget {
   final bool? stringOnly;
   final bool? doubleOnly;
   final bool? removeBorder;
+  final IconData? sufficIcon;
+  final VoidCallback? onSuffixIconPress;
 
   @override
   Widget build(BuildContext context) {
@@ -86,6 +90,10 @@ class SimpleInputfieldWidget extends StatelessWidget {
           hintText: hintText,
           counterText: '',
           border: removeBorder! ? null : const OutlineInputBorder(),
+          suffixIcon: IconButton(
+            onPressed: onSuffixIconPress,
+            icon: Icon(sufficIcon),
+          ),
         ),
       ),
     );
