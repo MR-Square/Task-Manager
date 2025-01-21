@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:task_manager/models/task_model.dart';
+import 'package:task_manager/res/routes/routes_name.dart';
 import 'package:task_manager/utils/utils.dart';
 import 'package:task_manager/view_models/controllers/daily/daily_view_model.dart';
 import 'package:task_manager/views/daily/dashboard_card_widget.dart';
@@ -28,13 +29,27 @@ class _DailyViewState extends State<DailyView> {
         backgroundColor: Colors.transparent,
         title: const Text('Todos'),
         actions: [
+          IconButton(
+            onPressed: () => _vm.addTaskDialogBox(context),
+            icon: const Icon(
+              Icons.add,
+              color: Colors.green,
+              size: 30,
+            ),
+          ),
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 4.0),
-            child: IconButton(
-              onPressed: () => _vm.addTaskDialogBox(context),
-              icon: const Icon(
-                Icons.add,
-                color: Colors.green,
+            padding: const EdgeInsets.only(right: 12.0),
+            child: CircleAvatar(
+              radius: 15,
+              backgroundColor: Colors.blueAccent,
+              child: IconButton(
+                padding: const EdgeInsets.all(0),
+                onPressed: () => Get.toNamed(RoutesName.profileView),
+                icon: const Icon(
+                  Icons.account_circle,
+                  color: Colors.white,
+                  size: 30,
+                ),
               ),
             ),
           ),

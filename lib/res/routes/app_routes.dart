@@ -4,6 +4,7 @@ import 'package:task_manager/views/home/home_view.dart';
 import 'package:task_manager/views/login/forget_password_view.dart';
 import 'package:task_manager/views/login/login_view.dart';
 import 'package:task_manager/views/login/signup_view.dart';
+import 'package:task_manager/views/profile/profile_view.dart';
 import 'package:task_manager/views/splash_view.dart';
 
 class AppRoutes {
@@ -26,6 +27,11 @@ class AppRoutes {
         GetPage(
           name: RoutesName.forgetPasswordView,
           page: () => const ForgetPasswordView(),
+          // transition: Transition.leftToRightWithFade,
+        ),
+        GetPage(
+          name: RoutesName.profileView,
+          page: () => const ProfileView(),
           // transition: Transition.leftToRightWithFade,
         ),
         GetPage(
