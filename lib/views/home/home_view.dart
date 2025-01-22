@@ -34,7 +34,7 @@ class _HomeViewState extends State<HomeView> {
               ),
             ],
           ),
-          bottomNavigationBar:  BottomNavBarWidget(),
+          bottomNavigationBar: BottomNavBarWidget(),
         ),
       ),
     );

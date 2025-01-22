@@ -29,16 +29,8 @@ class _DailyViewState extends State<DailyView> {
         backgroundColor: Colors.transparent,
         title: const Text('Todos'),
         actions: [
-          IconButton(
-            onPressed: () => _vm.addTaskDialogBox(context),
-            icon: const Icon(
-              Icons.add,
-              color: Colors.green,
-              size: 30,
-            ),
-          ),
           Padding(
-            padding: const EdgeInsets.only(right: 12.0),
+            padding: const EdgeInsets.only(right: 16.0),
             child: CircleAvatar(
               radius: 15,
               backgroundColor: Colors.blueAccent,
@@ -95,6 +87,12 @@ class _DailyViewState extends State<DailyView> {
             ),
           ],
         ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () => _vm.addTaskDialogBox(context),
+        backgroundColor: Colors.green,
+        foregroundColor: Colors.white,
+        child: const Icon(Icons.add),
       ),
     );
   }

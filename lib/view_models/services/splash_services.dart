@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:task_manager/res/constants/constants.dart';
 import 'package:task_manager/res/routes/routes_name.dart';
 
 class SplashServices {
@@ -13,7 +14,7 @@ class SplashServices {
   isUserLoggedin() async {
     SharedPreferences sp = await SharedPreferences.getInstance();
 
-    String? user = sp.getString('user');
+    String? user = sp.getString(StorageKeys.user);
 
     if (user != null) {
       Get.offAllNamed(RoutesName.homeView);
