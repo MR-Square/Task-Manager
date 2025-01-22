@@ -31,7 +31,7 @@ class AppRoutes {
         ),
         GetPage(
           name: RoutesName.profileView,
-          page: () => const ProfileView(),
+          page: () => ProfileView(),
           // transition: Transition.leftToRightWithFade,
         ),
         GetPage(

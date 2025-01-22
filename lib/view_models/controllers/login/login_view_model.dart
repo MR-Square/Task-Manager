@@ -1,6 +1,9 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:task_manager/models/user_model.dart';
 import 'package:task_manager/res/constants/constants.dart';
 import 'package:task_manager/res/routes/routes_name.dart';
 
@@ -26,12 +29,14 @@ class LoginViewModel extends GetxController {
     if (loginFormKey.currentState!.validate()) {
       SharedPreferences sp = await SharedPreferences.getInstance();
 
-      String user = {
-        'username': usernameController.text,
-        'password': passwordController.text,
-      }.toString();
+      UserModel user = UserModel(
+        username: usernameController.text,
+        password: passwordController.text,
+      );
 
-      sp.setString(StorageKeys.user, user);
+      String userJson = json.encode(user.toJson());
+
+      sp.setString(StorageKeys.user, userJson);
       Get.offAndToNamed(RoutesName.homeView);
     }
   }
