@@ -74,7 +74,7 @@ class Utils {
   static showDialogBox(
     BuildContext context,
     String title,
-    List<Widget> contents, {
+    Widget contents, {
     VoidCallback? onCancel,
     VoidCallback? onConfirm,
     bool? dismissible = false,
@@ -86,13 +86,8 @@ class Utils {
       builder: (context) {
         return AlertDialog(
           title: Center(child: Text(title)),
-          shape: const LinearBorder(),
-          content: SizedBox(
-            height: height ?? heightPer(10),
-            child: Column(
-              children: contents,
-            ),
-          ),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
+          content: contents,
           actions: [
             if (onCancel != null)
               TextButton(
@@ -101,6 +96,7 @@ class Utils {
                   'cancel',
                   style: TextStyle(
                     color: Colors.red,
+                    fontSize: 18,
                   ),
                 ),
               ),
@@ -110,6 +106,7 @@ class Utils {
                 'save',
                 style: TextStyle(
                   color: Colors.green,
+                  fontSize: 20,
                 ),
               ),
             ),

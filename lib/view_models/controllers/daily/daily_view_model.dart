@@ -64,12 +64,11 @@ class DailyViewModel extends GetxController {
     Utils.showDialogBox(
       context,
       'Add Task',
-      [
         SimpleInputfieldWidget(
           controller: addTaskController,
           labelText: 'Task',
         ),
-      ],
+      
       onCancel: () {
         addTaskController.clear();
         Get.back();

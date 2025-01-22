@@ -16,7 +16,7 @@ class ProfileCardWidget extends StatelessWidget {
       child: ListTile(
         title: Text(title),
         trailing: TextButton.icon(
-          onPressed: () {},
+          onPressed: onEdit,
           icon: const Icon(Icons.chevron_right),
           label: const Text('Edit'),
           iconAlignment: IconAlignment.end,
