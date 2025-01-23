@@ -13,59 +13,57 @@ class ProfileView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        appBar: AppBar(
-          title: const Text('My Profile'),
-          backgroundColor: Colors.transparent,
-        ),
-        body: Padding(
-          padding: const EdgeInsets.all(12.0),
-          child: SingleChildScrollView(
-            child: Column(
-              children: [
-                Obx(
-                  () => ProfileCardWidget(
-                    title: _vm.usernameController.value.text,
-                    onEdit: () => _vm.editUsername(context),
-                  ),
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('My Profile'),
+        backgroundColor: Colors.transparent,
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(12.0),
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              Obx(
+                () => ProfileCardWidget(
+                  title: _vm.usernameController.value.text,
+                  onEdit: () => _vm.editUsername(context),
                 ),
-                Utils.verticalSpace(),
-                Obx(
-                  () => ProfileCardWidget(
-                    title: _vm.passwordController.value.text,
-                    onEdit: () => _vm.editPassword(context),
-                  ),
+              ),
+              Utils.verticalSpace(),
+              Obx(
+                () => ProfileCardWidget(
+                  title: _vm.passwordController.value.text,
+                  onEdit: () => _vm.editPassword(context),
                 ),
-                Utils.verticalSpace(),
-                ProfileCardWidget(
-                  title: 'Hint Question',
-                  onEdit: () {},
+              ),
+              Utils.verticalSpace(),
+              ProfileCardWidget(
+                title: 'Hint Question',
+                onEdit: () {},
+              ),
+              Utils.verticalSpace(),
+              ProfileCardWidget(
+                title: 'Hint Answer',
+                onEdit: () {},
+              ),
+              // const Spacer(),
+              Utils.verticalSpace(40),
+              TextButton.icon(
+                onPressed: _vm.logout,
+                icon: const Icon(
+                  Icons.logout,
+                  color: Colors.red,
+                  size: 26,
                 ),
-                Utils.verticalSpace(),
-                ProfileCardWidget(
-                  title: 'Hint Answer',
-                  onEdit: () {},
-                ),
-                // const Spacer(),
-                Utils.verticalSpace(40),
-                TextButton.icon(
-                  onPressed: _vm.logout,
-                  icon: const Icon(
-                    Icons.logout,
+                label: const Text(
+                  'Logout',
+                  style: TextStyle(
                     color: Colors.red,
-                    size: 26,
-                  ),
-                  label: const Text(
-                    'Logout',
-                    style: TextStyle(
-                      color: Colors.red,
-                      fontSize: 25,
-                    ),
+                    fontSize: 25,
                   ),
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
       ),

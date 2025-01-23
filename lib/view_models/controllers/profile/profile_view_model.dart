@@ -54,6 +54,7 @@ class ProfileViewModel extends GetxController {
 
   /// This method is used to edit user name.
   editUsername(BuildContext context) {
+    var temp = usernameController.value.text;
     Utils.showDialogBox(
       context,
       'Edit Username',
@@ -65,15 +66,21 @@ class ProfileViewModel extends GetxController {
         Get.back();
       },
       onConfirm: () {
-        updateUser();
-        usernameController.refresh();
-        Get.back();
+        if (temp != usernameController.value.text) {
+          updateUser();
+          usernameController.refresh();
+          Get.back();
+          Utils.snackbarMessage('Done', 'Username updated successfully');
+        } else {
+          Get.back();
+        }
       },
     );
   }
 
   /// This method is used to edit user name.
   editPassword(BuildContext context) {
+    var temp = passwordController.value.text;
     Utils.showDialogBox(
       context,
       'Edit Password',
@@ -85,9 +92,14 @@ class ProfileViewModel extends GetxController {
         Get.back();
       },
       onConfirm: () {
-        updateUser();
-        passwordController.refresh();
-        Get.back();
+        if (temp != passwordController.value.text) {
+          updateUser();
+          passwordController.refresh();
+          Get.back();
+          Utils.snackbarMessage('Done', 'Password updated successfully');
+        } else {
+          Get.back();
+        }
       },
     );
   }
