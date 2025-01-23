@@ -79,6 +79,11 @@ class Utils {
     VoidCallback? onConfirm,
     bool? dismissible = false,
     double? height,
+    double? borderRadius = 4,
+    String? confirmLabel = 'save',
+    String? cancelLabel = 'cancel',
+    Color? confirmColor = Colors.green,
+    Color? cancelColor = Colors.red,
   }) {
     showDialog(
       context: context,
@@ -86,26 +91,27 @@ class Utils {
       builder: (context) {
         return AlertDialog(
           title: Center(child: Text(title)),
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
+          shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(borderRadius!)),
           content: contents,
           actions: [
             if (onCancel != null)
               TextButton(
                 onPressed: onCancel,
-                child: const Text(
-                  'cancel',
+                child: Text(
+                  cancelLabel!,
                   style: TextStyle(
-                    color: Colors.red,
+                    color: cancelColor,
                     fontSize: 18,
                   ),
                 ),
               ),
             TextButton(
               onPressed: onConfirm,
-              child: const Text(
-                'save',
+              child: Text(
+                confirmLabel!,
                 style: TextStyle(
-                  color: Colors.green,
+                  color: confirmColor,
                   fontSize: 20,
                 ),
               ),

@@ -4,10 +4,12 @@ class TaskModel {
     this.task,
     this.isCompleted,
     this.isDeleted,
+    this.description,
   });
 
   final int? id;
   final String? task;
+  final String? description;
   bool? isCompleted;
   bool? isDeleted;
 
@@ -15,6 +17,7 @@ class TaskModel {
     return TaskModel(
       id: json['id'],
       task: json['task'],
+      description: json['description'],
       isCompleted: json['isCompleted'],
       isDeleted: json['isDeleted'],
     );
@@ -24,6 +27,7 @@ class TaskModel {
     return {
       'id': id,
       'task': task,
+      'description': description,
       'isCompleted': isCompleted,
       'isDeleted': isDeleted,
     };
