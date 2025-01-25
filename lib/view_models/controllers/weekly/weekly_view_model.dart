@@ -22,7 +22,6 @@ class WeeklyViewModel extends GetxController {
 
   // ========================== VARIABLES ==========================
   final formKey = GlobalKey<FormState>();
-  // ========================== CONTROLLER ==========================
   // ========================== METHODS ==========================
 
   // Method to show dialogbox to add task:

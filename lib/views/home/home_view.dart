@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:task_manager/res/components/navbar/bottom_nav_bar_widget.dart';
 import 'package:task_manager/views/daily/daily_view.dart';
+import 'package:task_manager/views/monthly/monthly_view.dart';
 import 'package:task_manager/views/weekly/weekly_view.dart';
 
 class HomeView extends StatefulWidget {
@@ -28,9 +29,7 @@ class _HomeViewState extends State<HomeView> {
               // ),
               DailyView(),
               WeeklyView(),
-              Center(
-                child: Text('Monthly View'),
-              ),
+              MonthlyView(),
             ],
           ),
           bottomNavigationBar: BottomNavBarWidget(),
