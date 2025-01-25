@@ -77,7 +77,7 @@ class MonthlyViewModel extends GetxController {
     SharedPreferences sp = await SharedPreferences.getInstance();
 
     // First removing old one:
-    sp.remove(StorageKeys.weeklyTaskList);
+    sp.remove(StorageKeys.monthlyTaskList);
 
     // converting dart object to json format:
     List<String> tasks = monthlyTaskList
@@ -90,7 +90,7 @@ class MonthlyViewModel extends GetxController {
 
     // storing into storage:
     sp.setStringList(
-      StorageKeys.weeklyTaskList,
+      StorageKeys.monthlyTaskList,
       tasks,
     );
   }
