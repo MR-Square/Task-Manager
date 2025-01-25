@@ -136,4 +136,5 @@ class WeeklyViewModel extends GetxController {
     weeklyTaskList.removeAt(index);
     updateStorage();
   }
+
 }
