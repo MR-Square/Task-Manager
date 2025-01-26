@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:task_manager/models/task_model.dart';
 import 'package:task_manager/res/components/cards/task_card_widget.dart';
+import 'package:task_manager/res/routes/routes_name.dart';
 import 'package:task_manager/view_models/controllers/monthly/monthly_view_model.dart';
 
 class MonthlyView extends StatefulWidget {
@@ -26,7 +27,20 @@ class _MonthlyViewState extends State<MonthlyView> {
       appBar: AppBar(
         title: const Text('Monthly Todos'),
         backgroundColor: Colors.transparent,
-        centerTitle: true,
+        actions: [
+          Padding(
+            padding: const EdgeInsets.only(right: 16.0),
+            child: IconButton(
+              padding: const EdgeInsets.all(0),
+              onPressed: () => Get.toNamed(RoutesName.settingsView),
+              icon: const Icon(
+                Icons.settings,
+                color: Colors.blueGrey,
+                size: 30,
+              ),
+            ),
+          ),
+        ],
       ),
       body: Obx(
         () => ListView.builder(
