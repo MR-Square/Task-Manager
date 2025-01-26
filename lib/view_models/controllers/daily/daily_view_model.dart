@@ -213,4 +213,34 @@ class DailyViewModel extends GetxController {
     clearStorage();
     saveTask();
   }
+
+  // Method to edit task:
+  editTask(BuildContext context, int index, TaskModel task) {
+    addTaskController.text = task.task.toString();
+    Utils.showDialogBox(
+      context,
+      'Edit Task',
+      SimpleInputfieldWidget(
+        controller: addTaskController,
+        labelText: 'Task',
+      ),
+      onCancel: () {
+        addTaskController.clear();
+        Get.back();
+      },
+      onConfirm: () {
+        // addTask(addTaskController.text);
+        dailyTasksList[index] = TaskModel(
+          id: task.id,
+          task: addTaskController.text,
+          description: task.description,
+          isCompleted: task.isCompleted,
+          isDeleted: task.isDeleted,
+        );
+        Get.back();
+        Utils.snackbarMessage('Done', 'Task updated successfully!');
+        addTaskController.clear();
+      },
+    );
+  }
 }

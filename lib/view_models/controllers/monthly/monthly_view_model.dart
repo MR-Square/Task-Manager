@@ -167,4 +167,58 @@ class MonthlyViewModel extends GetxController {
     monthlyTaskList.removeAt(index);
     updateStorage();
   }
+
+  // Method to edit task:
+  editTask(BuildContext context, int index, TaskModel task) {
+    titleController.text = task.task.toString();
+    subTitleController.text = task.description.toString();
+    Utils.showDialogBox(
+      context,
+      'Edit Task',
+      SizedBox(
+        height: Utils.heightPer(20),
+        child: Form(
+          key: formKey,
+          child: Column(
+            children: [
+              SimpleInputfieldWidget(
+                labelText: 'Title',
+                controller: titleController,
+                focusNode: titleFocusNode,
+                validateString: 'title is required',
+              ),
+              Utils.verticalSpace(),
+              SimpleInputfieldWidget(
+                labelText: 'Description',
+                controller: subTitleController,
+                focusNode: subTitleFocusNode,
+                validateField: false,
+              ),
+            ],
+          ),
+        ),
+      ),
+      onCancel: () {
+        Get.back();
+        titleController.clear();
+        subTitleController.clear();
+      },
+      onConfirm: () {
+        if (formKey.currentState!.validate()) {
+          // addTask();
+          monthlyTaskList[index] = TaskModel(
+            id: task.id,
+            task: titleController.text,
+            description: subTitleController.text,
+            isCompleted: task.isCompleted,
+            isDeleted: task.isDeleted,
+          );
+          Get.back();
+          Utils.snackbarMessage('Done', 'Task updated successfully!');
+          titleController.clear();
+          subTitleController.clear();
+        }
+      },
+    );
+  }
 }

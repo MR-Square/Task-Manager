@@ -70,9 +70,9 @@ class _DailyViewState extends State<DailyView> {
                     TaskModel task = _vm.dailyTasksList[index];
                     return TaskCardWidget(
                       task: task,
-                      onDelete: () => _vm.deleteTaskDialogBox(context,index),
+                      onDelete: () => _vm.deleteTaskDialogBox(context, index),
                       onUpdate: () => _vm.updateTaskStatus(task),
-                      onEdit: () {},
+                      onEdit: () => _vm.editTask(context,index, task),
                     );
                   },
                 ),

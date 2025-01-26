@@ -37,7 +37,7 @@ class _MonthlyViewState extends State<MonthlyView> {
               task: task,
               onDelete: () => _vm.deleteTaskDialogBox(context, index),
               onUpdate: () => _vm.updateTask(task),
-              onEdit: () {},
+              onEdit: () => _vm.editTask(context, index, task),
             );
           },
         ),

@@ -37,7 +37,7 @@ class _WeeklyViewState extends State<WeeklyView> {
               task: task,
               onDelete: () => _vm.deleteTaskDialogbox(context, index),
               onUpdate: () => _vm.updateTask(task),
-              onEdit: () {},
+              onEdit: () => _vm.editTask(context, index, task),
             );
           },
         ),
