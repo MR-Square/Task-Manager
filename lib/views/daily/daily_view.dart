@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:task_manager/models/task_model.dart';
+import 'package:task_manager/res/components/cards/task_card_widget.dart';
 import 'package:task_manager/res/routes/routes_name.dart';
 import 'package:task_manager/utils/utils.dart';
 import 'package:task_manager/view_models/controllers/daily/daily_view_model.dart';
@@ -67,19 +68,11 @@ class _DailyViewState extends State<DailyView> {
                   itemCount: _vm.dailyTasksList.length,
                   itemBuilder: (context, index) {
                     TaskModel task = _vm.dailyTasksList[index];
-                    return Card(
-                      child: ListTile(
-                        onLongPress: () {
-                          _vm.deleteTask(index);
-                        },
-                        title: Text(task.task.toString()),
-                        trailing: Checkbox(
-                          value: task.isCompleted,
-                          onChanged: (val) {
-                            _vm.updateTaskStatus(task);
-                          },
-                        ),
-                      ),
+                    return TaskCardWidget(
+                      task: task,
+                      onDelete: () => _vm.deleteTaskDialogBox(context,index),
+                      onUpdate: () => _vm.updateTaskStatus(task),
+                      onEdit: () {},
                     );
                   },
                 ),

@@ -26,7 +26,6 @@ class DailyViewModel extends GetxController {
   // ======================== CONTROLLERS ========================
   final addTaskController = TextEditingController();
 
-  // ======================== LISTS ========================
   // ======================== METHODS ========================
 
   // Method to fetch tasks from storage:
@@ -64,11 +63,10 @@ class DailyViewModel extends GetxController {
     Utils.showDialogBox(
       context,
       'Add Task',
-        SimpleInputfieldWidget(
-          controller: addTaskController,
-          labelText: 'Task',
-        ),
-      
+      SimpleInputfieldWidget(
+        controller: addTaskController,
+        labelText: 'Task',
+      ),
       onCancel: () {
         addTaskController.clear();
         Get.back();
@@ -77,6 +75,34 @@ class DailyViewModel extends GetxController {
         addTask(addTaskController.text);
         addTaskController.clear();
         Get.back();
+      },
+    );
+  }
+
+  // Method to show dialogbox to delete task:
+  deleteTaskDialogBox(BuildContext context, int index) {
+    Utils.showDialogBox(
+      context,
+      'Alert',
+      SizedBox(
+        width: Utils.width,
+        child: const Text(
+          'Are you sure, you want to delete it?',
+          textAlign: TextAlign.center,
+        ),
+      ),
+      borderRadius: 12,
+      confirmLabel: 'delete',
+      confirmColor: Colors.red,
+      cancelColor: Colors.green,
+      onCancel: Get.back,
+      onConfirm: () {
+        deleteTask(index);
+        Get.back();
+        Utils.snackbarMessage(
+          'Done',
+          'Task deleted successfully!',
+        );
       },
     );
   }

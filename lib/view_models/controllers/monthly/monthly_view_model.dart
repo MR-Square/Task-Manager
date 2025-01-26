@@ -72,6 +72,34 @@ class MonthlyViewModel extends GetxController {
     );
   }
 
+  // Method to show dialogbox to delete task:
+  deleteTaskDialogBox(BuildContext context, int index) {
+    Utils.showDialogBox(
+      context,
+      'Alert',
+      SizedBox(
+        width: Utils.width,
+        child: const Text(
+          'Are you sure, you want to delete it?',
+          textAlign: TextAlign.center,
+        ),
+      ),
+      borderRadius: 12,
+      confirmLabel: 'delete',
+      confirmColor: Colors.red,
+      cancelColor: Colors.green,
+      onCancel: Get.back,
+      onConfirm: () {
+        deleteTask(index);
+        Get.back();
+        Utils.snackbarMessage(
+          'Done',
+          'Task deleted successfully!',
+        );
+      },
+    );
+  }
+
   // Method to update storage
   updateStorage() async {
     SharedPreferences sp = await SharedPreferences.getInstance();
